@@ -6,6 +6,12 @@ pipeline {
             steps {
                  sh 'ls'
             }
+        }
+        
+        stage('git') {
+            steps {
+                 sh 'git --version'
+            }
         }       
 }
 }
