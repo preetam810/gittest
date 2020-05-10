@@ -1,3 +1,12 @@
-HI There
-test feature
+pipeline {
+    agent any
+    
+    stages {
+        stage('cmd') {
+            steps {
+                 sh 'ls'
+            }
+        }       
+}
+}
 
