@@ -40,6 +40,10 @@ jobs:
         run: |
           echo "Publishing application to build repository..."
           build_version=$(head -n 1 version)
-          echo "Branch name is $BRANCH_NAME"
+          repository_type=snapshots
+          if [["$BRANCH_NAME]}" == 'main' ]]; then
+            repository_type=releases
+          fi
+          echo "Using Branch: $BRANCH_NAME and Build repository: $repository_type"
         # zip python-app-$build_version.zip lambda-s3-dynamodb.py
         # aws s3 cp python-app-$build_version.zip s3://vw-demo-730335502100-build-repository/snapshots/
