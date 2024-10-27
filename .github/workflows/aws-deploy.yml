@@ -1,9 +1,12 @@
 name: Deploy to AWS
 
 on:
-  workflow_dispatch
+  push:
+    branches: ['main', 'release/*', 'develop']
+  pull_request:
+    branches: ['main', 'release/*', 'develop']
+  workflow_dispatch:
    
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -29,4 +32,4 @@ jobs:
           echo "Deploying application to AWS..."
           build_version=$(head -n 1 version)
           zip python-app-$build_version.zip lambda-s3-dynamodb.py
-          aws s3 cp python-app-$build_version.zip s3://vw-demo-730335502100-build-repository/snapshots/
+        # aws s3 cp python-app-$build_version.zip s3://vw-demo-730335502100-build-repository/snapshots/
