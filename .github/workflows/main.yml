@@ -44,6 +44,6 @@ jobs:
           if [["$BRANCH_NAME]}" == 'main' ]]; then
             repository_type=releases
           fi
-          echo "Using Branch: $BRANCH_NAME and Build repository: $repository_type"
-        # zip python-app-$build_version.zip lambda-s3-dynamodb.py
-        # aws s3 cp python-app-$build_version.zip s3://vw-demo-730335502100-build-repository/snapshots/
+          echo "Branch is $BRANCH_NAME, so uploading build to $repository_type repository"
+          zip python-app-$build_version.zip lambda-s3-dynamodb.py
+          aws s3 cp python-app-$build_version.zip s3://vw-demo-730335502100-build-repository/$repository_type/
