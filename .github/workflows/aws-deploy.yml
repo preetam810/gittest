@@ -26,6 +26,6 @@ jobs:
       - name: Deploy Application
         run: |
           echo "Deploying application to AWS..."
-          # Add your AWS CLI deployment commands here, for example:
-          # aws s3 cp my_app.zip s3://my-bucket-name/
-          aws s3 ls
+          build_version=$(head -n 1 version)
+          zip python-app-$build_version.zip lambda-s3-dynamodb.py
+          aws s3 cp python-app-$build_version.zip s3://vw-demo-730335502100-build-repository/snapshots
