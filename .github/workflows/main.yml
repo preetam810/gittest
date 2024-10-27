@@ -1,26 +1,46 @@
-name: Python CI/CD Pipeline
+name: Python CI Pipeline
 
 on:
   workflow_dispatch
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}  
 
 jobs:
-  # Job 1: Lint, Test and Build
+  Lint, Test and Build
   test-and-build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'  # or any specific version needed
+          python-version: '3.9'  
 
-      # Step 5: Run tests
+      - name: Run Linting
+        run: |
+          echo "Running Linter" 
+        # Placeholder for lint tool command
+
       - name: Run Tests
         run: |
-          pip install pytest
-          echo "run tests"
+          echo "Running tests" 
+        # Placeholder for test execution command
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-1  
+
+      # Package and publish app to build repository. Here S3 is used as the build repository as an example.
+      - name: Package and publish app to build repository
+        run: |
+          echo "Publishing application to build repository..."
+          build_version=$(head -n 1 version)
+          echo "Branch name is $BRANCH_NAME"
+        # zip python-app-$build_version.zip lambda-s3-dynamodb.py
+        # aws s3 cp python-app-$build_version.zip s3://vw-demo-730335502100-build-repository/snapshots/
