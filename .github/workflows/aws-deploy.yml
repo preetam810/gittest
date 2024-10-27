@@ -41,9 +41,9 @@ jobs:
       - name: Download build from build repository
         run: |
           echo "Downloading build from build repository..."
-          echo $build-version
-          echo $build-repository-type
-          echo $build-version
-          aws s3 cp s3://vw-demo-730335502100-build-repository/$build-repository-type/$build-version .
+          echo ${{ github.event.inputs.environment }}
+          echo ${{ github.event.inputs.build-repository-type }}
+          echo ${{ github.event.inputs.build-version }}
+          aws s3 cp s3://vw-demo-730335502100-build-repository/${{ github.event.inputs.build-repository-type }}/${{ github.event.inputs.build-version }} .
           ls -ltrh
 
