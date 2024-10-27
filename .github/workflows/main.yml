@@ -6,7 +6,6 @@ env:
   BRANCH_NAME: ${{ github.head_ref || github.ref_name }}  
 
 jobs:
-  Lint, Test and Build
   test-and-build:
     runs-on: ubuntu-latest
 
