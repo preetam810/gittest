@@ -45,12 +45,12 @@ jobs:
 
       - name: Deploy build to AWS Lambda
         run: |
-          echo "Deploying ${{ github.event.inputs.build-version }} to ${{ github.event.inputs.environment }}..."
+          echo "Deploying ${{ github.event.inputs.build-version }} to ${{ github.event.inputs.environment }} environment..."
           echo ${{ github.event.inputs.environment }}
           echo ${{ github.event.inputs.build-repository-type }}
           echo ${{ github.event.inputs.build-version }}
           aws lambda update-function-code \
             --function-name lambda-s3-dynamodb-${{ github.event.inputs.environment }} \
             --zip-file fileb://${{ github.event.inputs.build-version }} \
-            --region us-west-1
+            --region eu-west-1
         
