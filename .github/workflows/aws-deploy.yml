@@ -1,11 +1,22 @@
 name: Deploy to AWS
 
 on:
-  push:
-    branches: ['main', 'release/*', 'develop']
-  pull_request:
-    branches: ['main', 'release/*', 'develop']
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy: [dev, uat, prod]'
+        type: string
+        default: dev
+        required: true
+      build-repository-type:
+        description: 'Environment to deploy: [releases, snapshots]'      
+        type: string
+        default: releases
+        required: true
+      build-version:
+        description: 'Build version to deploy. Example: python-app-1.0.1.zip'      
+        type: string
+        required: true        
    
 jobs:
   deploy:
@@ -27,9 +38,12 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-1  
 
-      - name: Deploy Application
+      - name: Download build from build repository
         run: |
-          echo "Deploying application to AWS..."
-          build_version=$(head -n 1 version)
-          zip python-app-$build_version.zip lambda-s3-dynamodb.py
-        # aws s3 cp python-app-$build_version.zip s3://vw-demo-730335502100-build-repository/snapshots/
+          echo "Downloading build from build repository..."
+          echo $build-version
+          echo $build-repository-type
+          echo $build-version
+          aws s3 cp s3://vw-demo-730335502100-build-repository/$build-repository-type/$build-version $build-version
+          ls -ltrh
+
