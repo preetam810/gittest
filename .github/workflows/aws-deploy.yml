@@ -44,6 +44,6 @@ jobs:
           echo $build-version
           echo $build-repository-type
           echo $build-version
-          aws s3 cp s3://vw-demo-730335502100-build-repository/$build-repository-type/$build-version $build-version
+          aws s3 cp s3://vw-demo-730335502100-build-repository/$build-repository-type/$build-version .
           ls -ltrh
 
