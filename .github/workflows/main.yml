@@ -41,7 +41,7 @@ jobs:
           echo "Publishing application to build repository..."
           build_version=$(head -n 1 version)
           repository_type=snapshots
-          if [["$BRANCH_NAME]}" == 'main' ]]; then
+          if [["$BRANCH_NAME]}" == 'main' || "$BRANCH_NAME" == release/* ]]; then
             repository_type=releases
           fi
           echo "Branch is $BRANCH_NAME, so uploading build to $repository_type repository"
