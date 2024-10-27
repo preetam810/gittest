@@ -6,7 +6,7 @@ on:
       environment:
         description: 'Environment to deploy: [dev, uat, prod]'
         type: string
-        default: dev
+        default: uat
         required: true
       build-repository-type:
         description: 'Environment to deploy: [releases, snapshots]'      
